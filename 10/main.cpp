@@ -37,7 +37,7 @@ class Rect {
         void dump();
         // overloaded operators
         Rect operator | (const Rect& right);
-        void operator &= (const Rect& right);
+        Rect& operator &= (const Rect& right);
 };
 
 // default constructor
@@ -92,7 +92,7 @@ Rect Rect::operator | (const Rect& rhs) {
     return res;
 }
 
-void Rect::operator &= (const Rect& rhs) {
+Rect& Rect::operator &= (const Rect& rhs) {
     // Intersection with another rect
     int x1 = max(x, rhs.x);
     int y1 = max(y, rhs.y);
@@ -101,6 +101,7 @@ void Rect::operator &= (const Rect& rhs) {
     w = x2 - x1;
     h = y2 - y1;
     x = x1; y = y1;
+    return *this;
 }
 
 
