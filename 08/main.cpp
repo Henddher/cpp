@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <array>
+
 using namespace std;
 
 // Arrays
@@ -9,6 +11,10 @@ using namespace std;
 // int list[] {1, 2, 3}; // SHOULD ALSO WORK!
 int list[] = {1, 2, 3};
 int list2[4] = {1};
+
+// C++ container style
+// array<double, 4> dlist {1, 2}; // SHOULD ALSO WORK!
+array<double, 4> dlist = {1, 2};
 
 int main() {
     cout << list << endl;
@@ -31,6 +37,20 @@ int main() {
     0
     0
     */
+    cout << "-----" << endl;
+    // cout << dlist << endl; // Compiler error
+    for (double d: dlist) {
+        cout << d << endl;
+    }
+    /*
+    OUTPUT
+    ------
+    1
+    2
+    0
+    0
+    */
+
     return 0;
 }
 
