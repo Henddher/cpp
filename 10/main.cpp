@@ -35,6 +35,8 @@ class Rect {
             return w * h;
         }
         void dump();
+        // overloaded operators
+        Rect operator + (const Rect& right);
 };
 
 // default constructor
@@ -75,6 +77,18 @@ void Rect::dump() {
         << " x:" << x << " y:" << y \
         << " w:" << w << " h:" << h \
         << " area:" << area() << endl;
+}
+
+Rect Rect::operator + (const Rect& right) {
+    // Union of 2 rects
+    Rect res;
+    res.x = min(x, right.x);
+    res.y = min(y, right.y);
+    int x2 = max(x + w, right.x + right.w);
+    int y2 = max(y + h, right.y + right.h);
+    res.w = x2 - res.x;
+    res.h = y2 - res.y;
+    return res;
 }
 
 int main() {
@@ -118,6 +132,12 @@ int main() {
     rp->set_w(-2);
     rp->set_h(-5);
     rp->dump();
+
+    // + operator
+    Rect ra(-1, -1, 1, 1);
+    Rect rb(0, 0, 1, 1);
+    r = ra + rb;
+    r.dump();
 
     return 0;
 }
