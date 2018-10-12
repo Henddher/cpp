@@ -36,7 +36,8 @@ class Rect {
         }
         void dump();
         // overloaded operators
-        Rect operator + (const Rect& right);
+        Rect operator | (const Rect& right);
+        void operator &= (const Rect& right);
 };
 
 // default constructor
@@ -79,17 +80,29 @@ void Rect::dump() {
         << " area:" << area() << endl;
 }
 
-Rect Rect::operator + (const Rect& right) {
+Rect Rect::operator | (const Rect& rhs) {
     // Union of 2 rects
     Rect res;
-    res.x = min(x, right.x);
-    res.y = min(y, right.y);
-    int x2 = max(x + w, right.x + right.w);
-    int y2 = max(y + h, right.y + right.h);
+    res.x = min(x, rhs.x);
+    res.y = min(y, rhs.y);
+    int x2 = max(x + w, rhs.x + rhs.w);
+    int y2 = max(y + h, rhs.y + rhs.h);
     res.w = x2 - res.x;
     res.h = y2 - res.y;
     return res;
 }
+
+void Rect::operator &= (const Rect& rhs) {
+    // Intersection with another rect
+    int x1 = max(x, rhs.x);
+    int y1 = max(y, rhs.y);
+    int x2 = min(x + w, rhs.x + rhs.w);
+    int y2 = min(y + h, rhs.y + rhs.h);
+    w = x2 - x1;
+    h = y2 - y1;
+    x = x1; y = y1;
+}
+
 
 int main() {
     Rect r; // compiler error if Rect::Rect() is not declared
@@ -133,10 +146,14 @@ int main() {
     rp->set_h(-5);
     rp->dump();
 
-    // + operator
+    // | operator
     Rect ra(-1, -1, 1, 1);
     Rect rb(0, 0, 1, 1);
-    r = ra + rb;
+    r = ra | rb;
+    r.dump();
+
+    // &= operator
+    r &= ra;
     r.dump();
 
     return 0;
