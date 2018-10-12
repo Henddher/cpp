@@ -8,6 +8,7 @@ using namespace std;
 class Rect {
     // private: // the default
         int x, y, w, h;
+        string name;
     public:
         // constructor
         Rect();
@@ -38,13 +39,19 @@ class Rect {
 
 // default constructor
 Rect::Rect() {
+    name = "anonymous";
 }
 
-Rect::Rect(int _x, int _y, int _w, int _h) {
-    x = _x;
-    y = _y;
-    set_w(_w);
-    set_h(_h);
+// Rect::Rect(int _x, int _y, int _w, int _h) {
+//     x = _x;
+//     y = _y;
+//     set_w(_w);
+//     set_h(_h);
+// }
+// sugar syntax: list of initializations for class members after colon
+// member objects (e.g. name) are default constructed if they aren't
+// initialized after the colon
+Rect::Rect(int _x, int _y, int _w, int _h): x(_x), y(_y), w(_w), h(_h) {
 }
 
 void Rect::set_x(int _x) {
@@ -64,7 +71,8 @@ void Rect::set_h(int _h) {
 }
 
 void Rect::dump() {
-    cout << "x:" << x << " y:" << y \
+    cout << "name:" << name \
+        << " x:" << x << " y:" << y \
         << " w:" << w << " h:" << h \
         << " area:" << area() << endl;
 }
@@ -89,8 +97,15 @@ int main() {
     */
 
     // Rect r3(); // compiler error - default constructor cannot be called explicitly
-    Rect r4(1, 2, 3, 4);
+    // default constructor called explicitly gets confused with a regular
+    // function call
+    Rect r4(4, 3, 2, 1);
     r4.dump();
+    /*
+    OUTPUT
+    ------
+    x:4 y:3 w:2 h:1 area:2
+    */
 
     // Uniform initialization
     // should call Rect::Rect(int, int, int, int) constructor
