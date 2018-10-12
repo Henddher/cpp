@@ -111,6 +111,14 @@ int main() {
     // should call Rect::Rect(int, int, int, int) constructor
     // Rect r5 {2, 3, 4, 5}; // SHOULD WORK!
 
+    // Pointer
+    Rect * rp = &r;
+    rp->set_x(-1);
+    rp->set_y(-1);
+    rp->set_w(-2);
+    rp->set_h(-5);
+    rp->dump();
+
     return 0;
 }
 
