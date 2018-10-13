@@ -13,6 +13,7 @@ class Scalar {
     T value;
     ScalarType type;
     public:
+    Scalar() {};
     Scalar(T _v);
     static Scalar<T> CreateScalar(ScalarType _type) {
         Scalar<T> s;
@@ -63,7 +64,7 @@ void Scalar<T>::set(T _v) {
 
 // class template specialization
 // template <>
-// class Scalar <char> {
+// class Scalar <int> {
 // };
 
 
@@ -72,6 +73,11 @@ int main() {
     s.dump();
     s.set(5);
     s.dump();
+
+    Scalar<bool> n = Scalar<bool>::CreateScalar(ScalarType::Boolean);
+    n.set(true);
+    n.dump();
+
     return 0;
 }
 
